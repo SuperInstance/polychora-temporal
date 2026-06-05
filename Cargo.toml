@@ -5,6 +5,8 @@ members = [
     "crates/exr-converter",
     "crates/polychora",
     "crates/polychora-plugin-api",
+    "crates/polychora-temporal-bridge",
+    "crates/polychora-room-runtime",
 ]
 exclude = ["crates/polychora-content"]
 default-members = ["crates/polychora"]

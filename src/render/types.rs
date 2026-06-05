@@ -21,6 +21,10 @@ pub enum VteDisplayMode {
     ThickSlice,
     DebugCompare,
     DebugIntegral,
+    TemporalTrace,      // NEW: Trace through time layers
+    TemporalArrow,      // NEW: Show time direction as glyphs
+    TemporalSpacetime,  // NEW: Minkowski diagram projection
+    TemporalEvent,      // NEW: Highlight event voxels
 }
 
 impl VteDisplayMode {
@@ -31,6 +35,10 @@ impl VteDisplayMode {
             Self::ThickSlice => 2,
             Self::DebugCompare => 3,
             Self::DebugIntegral => 4,
+            Self::TemporalTrace => 5,
+            Self::TemporalArrow => 6,
+            Self::TemporalSpacetime => 7,
+            Self::TemporalEvent => 8,
         }
     }
 
@@ -41,6 +49,10 @@ impl VteDisplayMode {
             Self::ThickSlice => "thick_slice",
             Self::DebugCompare => "debug_compare",
             Self::DebugIntegral => "debug_integral",
+            Self::TemporalTrace => "temporal_trace",
+            Self::TemporalArrow => "temporal_arrow",
+            Self::TemporalSpacetime => "temporal_spacetime",
+            Self::TemporalEvent => "temporal_event",
         }
     }
 }

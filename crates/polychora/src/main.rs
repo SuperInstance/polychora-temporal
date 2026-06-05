@@ -22,6 +22,7 @@ mod scene;
 mod voxel;
 
 use clap::{ArgAction, Parser, ValueEnum};
+use common::semantics::Semantics4D;
 use egui::RichText;
 use higher_dimension_playground::render::{
     EguiPaintData, EguiPaintMesh, EguiPaintVertex, EguiTextureSlot, EguiTextureUpdate, FrameParams,
@@ -296,9 +297,13 @@ struct Args {
     #[arg(long, default_value_t = 160.0)]
     vte_max_trace_distance: f32,
 
-    /// VTE Stage-B display operator (integral, slice, thick-slice, debug-compare, debug-integral)
+    /// VTE Stage-B display operator (integral, slice, thick-slice, debug-compare, debug-integral, temporal-trace, temporal-arrow, temporal-spacetime, temporal-event)
     #[arg(long, value_enum, default_value_t = VteDisplayModeArg::Integral)]
     vte_display_mode: VteDisplayModeArg,
+
+    /// Semantics of the 4th axis (W): spatial (default) or temporal
+    #[arg(long, default_value_t = Semantics4DArg::Spatial)]
+    semantics: Semantics4DArg,
 
     /// VTE slice center layer index (0..layers-1). Defaults to center layer.
     #[arg(long)]
@@ -506,6 +511,10 @@ enum VteDisplayModeArg {
     ThickSlice,
     DebugCompare,
     DebugIntegral,
+    TemporalTrace,
+    TemporalArrow,
+    TemporalSpacetime,
+    TemporalEvent,
 }
 
 impl VteDisplayModeArg {
@@ -516,6 +525,34 @@ impl VteDisplayModeArg {
             Self::ThickSlice => VteDisplayMode::ThickSlice,
             Self::DebugCompare => VteDisplayMode::DebugCompare,
             Self::DebugIntegral => VteDisplayMode::DebugIntegral,
+            Self::TemporalTrace => VteDisplayMode::TemporalTrace,
+            Self::TemporalArrow => VteDisplayMode::TemporalArrow,
+            Self::TemporalSpacetime => VteDisplayMode::TemporalSpacetime,
+            Self::TemporalEvent => VteDisplayMode::TemporalEvent,
+        }
+    }
+}
+
+#[derive(Copy, Clone, Debug, ValueEnum)]
+enum Semantics4DArg {
+    Spatial,
+    Temporal,
+}
+
+impl From<Semantics4DArg> for Semantics4D {
+    fn from(v: Semantics4DArg) -> Self {
+        match v {
+            Semantics4DArg::Spatial => Semantics4D::Spatial,
+            Semantics4DArg::Temporal => Semantics4D::Temporal,
+        }
+    }
+}
+
+impl std::fmt::Display for Semantics4DArg {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Spatial => write!(f, "spatial"),
+            Self::Temporal => write!(f, "temporal"),
         }
     }
 }

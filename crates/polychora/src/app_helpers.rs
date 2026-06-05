@@ -205,7 +205,7 @@ pub(super) fn project_world_point_to_ndc_with_depth(
         view_h[3] * inv_w,
     ];
 
-    let depth = (view[2] * view[2] + view[3] * view[3]).sqrt();
+    let depth = (view[2] * view[2] + view[3] * view[3]).sqrt(); // spatial mode (unchanged); temporal projection TBD
     if !depth.is_finite() || depth < 1e-4 {
         return None;
     }

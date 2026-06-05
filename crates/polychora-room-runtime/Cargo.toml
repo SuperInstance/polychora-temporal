@@ -1,0 +1,11 @@
+[package]
+name = "polychora-room-runtime"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+polychora = { path = "../polychora" }
+common = { path = "../../common", features = ["ndarray", "nalgebra"] }
+higher-dimension-playground = { path = "../.." }
+polychora-temporal-bridge = { path = "../polychora-temporal-bridge" }
+serde = { version = "1.0", features = ["derive"] }

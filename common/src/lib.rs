@@ -1,6 +1,7 @@
 mod layout_verify;
 mod linalg_n;
 mod mat_n;
+pub mod semantics;
 mod utils;
 mod vec_n;
 

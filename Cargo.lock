@@ -3061,6 +3061,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "polychora-room-runtime"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "higher-dimension-playground",
+ "polychora",
+ "polychora-temporal-bridge",
+ "serde",
+]
+
+[[package]]
+name = "polychora-temporal-bridge"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "higher-dimension-playground",
+ "log",
+ "polychora",
+ "serde",
+]
+
+[[package]]
 name = "portable-atomic"
 version = "1.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
