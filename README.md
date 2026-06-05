@@ -2,6 +2,8 @@
 
 Polychora is a genuine 4D voxel game engine and multiplayer sandbox built on Vulkan.
 
+> **📚 Documentation:** [`PLUG_AND_PLAY.md`](./PLUG_AND_PLAY.md) · [`GETTING_STARTED.md`](./GETTING_STARTED.md) · [`ARCHITECTURE.md`](./ARCHITECTURE.md) · [`API_REFERENCE.md`](./API_REFERENCE.md) · [`LOW_LEVEL.md`](./LOW_LEVEL.md)
+
 It started as a rendering experiment and has evolved into a full 4D world simulation stack:
 - 4D player movement and camera control
 - real-time voxel world editing
