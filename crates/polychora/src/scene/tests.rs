@@ -1538,7 +1538,7 @@ fn place_break_replace_via_fast_patch_preserves_chunk() {
             };
 
             // --- Step 0: apply extra placements to client scene ---
-            for (eb, ec) in &extra_cores {
+            for (eb, _ec) in &extra_cores {
                 let mut ov = RegionChunkTree::new();
                 add_persistent_overrides(&mut ov);
                 let st = compose_server_subtree(platform, &platform_core, &ov);

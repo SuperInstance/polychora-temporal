@@ -9,8 +9,6 @@ use super::load::{
 use super::*;
 
 #[cfg(test)]
-use crate::migration::legacy_voxel::RegionChunkWorld;
-#[cfg(test)]
 use crate::shared::region_tree::chunk_key_i32;
 
 #[cfg(test)]

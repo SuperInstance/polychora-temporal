@@ -52,7 +52,13 @@ This engine does not fake 4D as hidden 3D slices.
 ## High-Level Architecture
 
 - `common/`:
-  Shared N-dimensional math/types used by CPU and GPU paths.
+  Shared N-dimensional math/types used by CPU and GPU paths (including `Semantics4D` for W-axis interpretation).
+
+- `crates/polychora-temporal-bridge/`:
+  W→Time integration — temporal world state, event voxels, conservation tracking, and glue layer.
+
+- `crates/polychora-room-runtime/`:
+  Room/ecology runtime — scoped gameplay contexts (rooms), bounded tile regions, multi-agent split/merge, and provenance tracking.
 
 - `crates/polychora/`:
   Main game client + dedicated server binary.
@@ -166,9 +172,20 @@ VTE-specific options:
 |------|--------|
 | `--vte-max-trace-steps` | Per-ray traversal step budget |
 | `--vte-max-trace-distance` | Max ray distance before miss |
-| `--vte-display-mode <integral\|slice\|thick-slice\|debug-compare\|debug-integral>` | Stage-B resolve mode |
+| `--vte-display-mode <integral\|slice\|thick-slice\|debug-compare\|debug-integral\|temporal-trace\|temporal-arrow\|temporal-spacetime\|temporal-event>` | Stage-B resolve mode |
 | `--vte-slice-layer <index>` | Slice center layer (default: middle layer) |
 | `--vte-thick-half-width <n>` | Thick-slice radius around center layer |
+| `--semantics <spatial\|temporal>` | W-axis interpretation (spatial or temporal) |
+
+Temporal-specific options:
+
+| Flag | Effect |
+|------|--------|
+| `--vte-display-mode temporal-trace` | Trace through time layers |
+| `--vte-display-mode temporal-arrow` | Show time direction as glyphs |
+| `--vte-display-mode temporal-spacetime` | Minkowski diagram projection |
+| `--vte-display-mode temporal-event` | Highlight event voxels |
+| `--semantics temporal` | Enable temporal W-axis mode |
 
 Screenshot/capture options:
 

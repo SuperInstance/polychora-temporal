@@ -18,11 +18,12 @@ polychora-temporal/
 │   │   ├── texture_pool.rs       # Texture atlas management
 │   │   ├── hud.rs                # Text overlay rendering
 │   │   ├── pipelines.rs          # Shader pipeline compilation
+│   │   ├── types.rs              # Shared render types (VteDisplayMode, RenderBackend, etc.)
 │   │   ├── geometry.rs           # Geometry buffers
 │   │   ├── bvh_topology_tests.rs # BVH for tetra tracing
 │   │   └── ...
 │   └── vulkan_setup.rs           # Vulkan device & instance
-├── common/                       # Shared N-dimensional math
+├── common/                       # Shared N-dimensional math (Semantics4D, VecN, MatN)
 ├── crates/
 │   ├── polychora/                # Main game client + server
 │   │   ├── src/
@@ -32,8 +33,8 @@ polychora-temporal/
 │   │   │   └── ...
 │   ├── polychora-content/        # First-party WASM plugin
 │   ├── polychora-plugin-api/     # Stable plugin ABI
-│   ├── polychora-temporal-bridge/# W→Time integration
-│   ├── polychora-room-runtime/   # Room/multiplayer runtime
+│   ├── polychora-temporal-bridge/# W→Time integration (TemporalWorld, EventVoxel, TemporalGlue, ConservationTracker)
+│   ├── polychora-room-runtime/   # Room/multiplayer runtime (Room, Tile, Ecology, Provenance)
 │   ├── demo/                     # Demo binary
 │   └── exr-converter/            # EXR frame converter
 └── slang-shaders/                # Slang shader source files
@@ -43,7 +44,7 @@ polychora-temporal/
 
 | Module | Responsibility | Key Types |
 |--------|---------------|-----------|
-| `render::vte` | Voxel Traversal Engine — 4D DDA ray cast | `VteBackend`, `VteSettings` |
+| `render::vte` | Voxel Traversal Engine — 4D DDA ray cast | `VteDisplayMode`, `GpuVoxelFrameMeta`, `VteDebugCounters` |
 | `shared::region_tree` | Spatial region tree for world replication | `RegionTree`, `RegionNode` |
 | `shared::wasm` | WASM runtime loading and execution | `WasmPlugin` |
 | `server::mob_sim` | 4D mob pathfinding and behavior | `Mob`, `PathFinder` |
@@ -62,6 +63,11 @@ The Voxel Traversal Engine separates 4D→2D rendering into two pipelined stages
    - `slice` — Sample a single W layer
    - `thick-slice` — Sample a range of W layers
    - `debug-compare` — Side-by-side comparison with reference trace
+   - `debug-integral` — Integral mode with diagnostic overlay
+   - `temporal-trace` — Highlight temporal trail through time layers
+   - `temporal-arrow` — Show time direction as glyphs on temporal voxels
+   - `temporal-spacetime` — Minkowski-style spacetime diagram projection
+   - `temporal-event` — Highlight event voxels along the temporal axis
 
 ```rust
 // Pseudocode for VTE pipeline

@@ -95,6 +95,26 @@ cargo run --release -- --vte-display-mode slice --vte-slice-layer 4
 cargo run --release -- --vte-display-mode debug-compare
 ```
 
+### Temporal Mode with the W→Time Bridge
+
+```bash
+# Enable temporal W-axis semantics
+cargo run --release -- --semantics temporal
+
+# See temporal trail through time layers
+cargo run --release -- --vte-display-mode temporal-trace
+
+# Minkowski spacetime diagram projection
+cargo run --release -- --vte-display-mode temporal-spacetime \
+  --semantics temporal
+
+# Show time direction as glyphs
+cargo run --release -- --vte-display-mode temporal-arrow
+
+# Highlight event voxels along the temporal axis
+cargo run --release -- --vte-display-mode temporal-event
+```
+
 ### Running Headless for Screenshots
 
 ```bash

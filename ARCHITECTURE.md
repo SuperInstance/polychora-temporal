@@ -30,13 +30,19 @@
 │  │(WASM plugin)       │◀──▶│  ┌────────────────┐         │      │
 │  │- Blocks & entities │    │  │ TemporalWorld   │         │      │
 │  │- Mob behavior      │    │  │ EventVoxel      │         │      │
-│  │- Procgen           │    │  │ Conservation    │         │      │
-│  └────────────────────┘    │  │ Tracker         │         │      │
-│                            │  └────────────────┘         │      │
-│  ┌────────────────────┐    └──────────────────────────────┘      │
-│  │polychora-plugin-api│                                          │
+│  │- Procgen           │    │  │ TemporalGlue    │         │      │
+│  └────────────────────┘    │  │ Conservation    │         │      │
+│                            │  │ Tracker         │         │      │
+│  ┌────────────────────┐    │  └────────────────┘         │      │
+│  │polychora-plugin-api│    └──────────────────────────────┘      │
 │  │(Stable ABI crate)  │                                          │
-│  └────────────────────┘                                          │
+│  └────────────────────┘    ┌────────────────────────────────┐   │
+│                            │  Room Runtime                   │   │
+│  ┌────────────────────┐    │  ┌────────────┐ ┌───────────┐ │   │
+│  │polychora-room-     │───▶│  │ Room       │ │ Ecology   │ │   │
+│  │runtime             │    │  │ Tile       │ │ Provenance│ │   │
+│  │(Multiplayer rooms) │    │  └────────────┘ └───────────┘ │   │
+│  └────────────────────┘    └────────────────────────────────┘   │
 │                                                                  │
 │  ┌────────────────────────────────────────────────────┐          │
 │  │  src/ + slang-shaders/ (Core rendering infra)      │          │
@@ -82,7 +88,11 @@
 
 ### polychora-temporal-bridge
 
-**Purpose:** Extends the engine with W→Time integration — temporal world state, event voxels, conservation tracking for the ternary fleet integration.
+**Purpose:** Extends the engine with W→Time integration — temporal world state, event voxels, time conservation tracking and glue layer for the ternary fleet integration.
+
+### polychora-room-runtime
+
+**Purpose:** Multiplayer room management — scoped gameplay contexts (rooms), bounded regions with presets (tiles), multi-agent coordination and room split/merge (ecology), and provenance tracking.
 
 ## Data Flow
 

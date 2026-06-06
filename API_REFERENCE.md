@@ -38,7 +38,7 @@ Core rendering subsystem. Sub-modules for Vulkan setup, pipeline compilation, HU
 - `render::vte` — Voxel Traversal Engine backend
 - `render::capture` — GPU screenshot capture
 - `render::pipelines` — Shader pipeline compilation
-- `render::types` — Shared render types and enums
+- `render::types` — Shared render types and enums (`VteDisplayMode`, `RenderBackend`, `RenderOptions`)
 
 ### `vulkan_setup`
 
@@ -304,7 +304,82 @@ pub struct ConservationTracker { ... }
 
 Tracks conservation of properties (mass, energy, information) across temporal operations.
 
+### `TemporalGlue`
+
+```rust
+pub struct TemporalGlue { ... }
+```
+
+Auto-wiring infrastructure that detects `Semantics4D::Temporal` and wires up the temporal crate ecosystem: conservation tracking, time advance, and diagnostics.
+
 ---
+
+## `polychora-room-runtime` (Room / ecology runtime)
+
+### `Room`
+
+```rust
+pub struct Room { ... }
+```
+
+A scoped gameplay context inside the temporal 4D world. Contains tiles, agents, a frozen context snapshot for temporal stability, and metadata.
+
+### `Tile`
+
+```rust
+pub struct Tile { ... }
+```
+
+A bounded region with presets, a creator context hash, required agents, and capabilities flags for temporal gameplay.
+
+### `Ecology`
+
+```rust
+pub struct Ecology { ... }
+```
+
+Multi-agent coordination runtime: manages rooms, handles split/merge operations at tile boundaries, and tracks active rooms.
+
+### `Provenance`
+
+```rust
+pub struct Provenance { ... }
+```
+
+Tracks origin and modification history of tiles and rooms — creator identity, timestamps, and action records.
+
+---
+
+## `common` — Shared Math and Semantics
+
+### `Semantics4D`
+
+```rust
+pub enum Semantics4D {
+    Spatial,  // W = 4th spatial axis
+    Temporal, // W = time dimension
+}
+```
+
+Controls whether the 4th axis (W) is treated as a spatial dimension or a time dimension. Passed via `--semantics` CLI flag.
+
+### `VteDisplayMode`
+
+```rust
+pub enum VteDisplayMode {
+    Integral,
+    Slice,
+    ThickSlice,
+    DebugCompare,
+    DebugIntegral,
+    TemporalTrace,      // Trace through time layers
+    TemporalArrow,      // Show time direction as glyphs
+    TemporalSpacetime,  // Minkowski diagram projection
+    TemporalEvent,      // Highlight event voxels
+}
+```
+
+Controls the Stage-B display operator for the Voxel Traversal Engine. Passed via `--vte-display-mode` CLI flag.
 
 ## Feature Gates
 

@@ -128,7 +128,6 @@ pub struct TextureDeclaration {
 #[cfg(test)]
 mod tests {
     extern crate alloc;
-    use super::BlockTickConfig;
     use super::*;
     use crate::entity::{MobAbilityParams, MobLocomotionMode, SimulationMode};
     use alloc::string::String;
