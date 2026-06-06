@@ -1,5 +1,5 @@
 use crate::temporal_world::TemporalWorld;
-use crate::conservation_tracker::ConservationTracker;
+use crate::conservation_tracker::{ConservationTracker, ConservationEvent};
 
 /// Auto-wiring infrastructure: detects Semantics4D::Temporal and
 /// connects temporal crates.
@@ -28,11 +28,22 @@ impl TemporalGlue {
     }
 
     /// Run per-tick glue work: update conservation tracking, etc.
-    pub fn tick(&mut self, _world: &TemporalWorld, dt: f64) {
+    pub fn tick(&mut self, _world: &TemporalWorld, dt: f64) -> Option<ConservationEvent> {
         if !self.active {
-            return;
+            return None;
         }
-        self.conservation.tick(dt);
+        match self.conservation.tick(dt) {
+            Some(event) => {
+                log::warn!(
+                    "Conservation event triggered: {:?} (budget={}, profile={})",
+                    event.event_type,
+                    event.budget,
+                    event.profile
+                );
+                Some(event)
+            }
+            None => None,
+        }
     }
 }
 

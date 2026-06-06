@@ -1,4 +1,5 @@
 use common::semantics::Semantics4D;
+use polychora::content_registry;
 use polychora::shared::voxel::BlockData;
 
 /// An EventVoxel maps an occurrence to a voxel representation.
@@ -32,7 +33,12 @@ impl EventVoxel {
     }
 }
 
-/// Map an event marker into a voxel block representation.
-pub fn event_to_block() -> BlockData {
-    BlockData::AIR
+/// Map an event material token into a voxel block representation.
+///
+/// Uses the polychora content registry's static token-to-block mapping.
+/// Token 0 (air) maps to `BlockData::AIR`, and tokens 1–68 map to their
+/// corresponding block types from the polychora-content plugin registration
+/// order.
+pub fn event_to_block(material_token: u8) -> BlockData {
+    content_registry::block_data_from_material_token(material_token)
 }
